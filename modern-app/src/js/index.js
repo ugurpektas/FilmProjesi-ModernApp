@@ -4,25 +4,32 @@
 
 // model- wiew - controller
 
+
 import Search from './models/Search';
+import { elements } from './base';
+import * as searchView from './views/searchView';
 
 const state = {};
 
 const searchController = async () => {
-    const keyword = document.getElementById('txt-keyword').value;
+    const keyword = elements.searchInput.value;
 
     if (keyword) {
-        state.search = new Search(keyword);
+        state.search = new Search(keyword);     // girilen valueyi state objesinin içerisine aktarma
 
         await state.search.getResults();
-        console.log(state.search.data);
+        
+        searchView.displayResults(state.search.data);
     }else {
         alert('anahtar kelime girmelisiniz.');
     }
 }
 
-document.getElementById('form-search').addEventListener('submit',function(e){
+elements.searchForm.addEventListener('submit',function(e){
         console.log('form submited...')
         searchController();
+
+
+
     e.preventDefault();
 });
