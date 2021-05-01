@@ -1,12 +1,23 @@
 export const elements = {
     searchForm: document.getElementById('form-search'),
     searchInput: document.getElementById('txt-keyword'),
+    movieListHeader: document.getElementById('movie-list-header'),
     movieList: document.getElementById('movie-list'),
     movieListContainer: document.getElementById('movie-list-container'),
-    movieListHeader: document.getElementById('movie-list-header'),
     movieDetails: document.getElementById('movie-details'),
     movieDetailsContainer: document.getElementById('movie-details-container'),
-    movieDetailsClose: document.getElementById('movie-details-close')
+    movieDetailsClose: document.getElementById('movie-details-close'),
+}
+
+export const renderLoader = parent => {
+  const loader = `<div class="nb-spinner"></div>`;
+  parent.insertAdjacentHTML('beforebegin', loader);
+}
+
+export const clearLoader = parent => {
+  const loader = parent.previousSibling;
+  if(loader)
+    loader.parentNode.removeChild(loader);
 }
 
 export const image_sizes = {

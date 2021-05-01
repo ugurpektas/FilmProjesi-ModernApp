@@ -23,8 +23,8 @@ export const displayResults = (keyword,data) => {
                 </div>
             </li>
         `;
-        
-        elements.movieListHeader.innerHTML = `${keyword} ile ilgili ${data.total_results} sonuç bulundu.`;
+
+        elements.movieListHeader.innerHTML = `${keyword} arasında ${data.total_results} sonuç bulundu.`;
         elements.movieListContainer.classList.add('d-block');    
         elements.movieList.insertAdjacentHTML('beforeend', html);
     })

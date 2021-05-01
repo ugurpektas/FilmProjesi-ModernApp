@@ -7,7 +7,7 @@
 
 
 import Search from './models/Search';
-import {elements} from './base';
+import { elements, renderLoader, clearLoader } from './base';
 import * as searchView from './views/searchView';
 import * as movieView from './views/movieView';
 import { Movie } from './models/Movie';
@@ -22,18 +22,21 @@ const searchController = async () => {
     if (keyword) {
         state.search = new Search(keyword);
 
-        await state.search.getResults();
-
         searchView.clearInput();
         searchView.clearResults();
-        searchView.displayResults(keyword , state.search.data);
 
-    }else {
+        renderLoader(elements.movieListContainer);
+
+        await state.search.getResults();
+        searchView.displayResults(keyword, state.search.data);
+        setTimeout(() => { clearLoader(elements.movieListContainer); }, 1000);
+
+    } else {
         alert('anahtar kelime girmelisiniz');
     }
 }
 
-elements.searchForm.addEventListener('submit', function(e) {
+elements.searchForm.addEventListener('submit', function (e) {
     e.preventDefault();
     searchController();
     console.log("form submitted");
@@ -42,18 +45,18 @@ elements.searchForm.addEventListener('submit', function(e) {
 // Movie Controller
 
 const movieController = async () => {
-    const id = window.location.hash.replace('#','');
-    if(id) {
-        state.movie= new Movie(id);
-        
-        await state.movie.getMovie();
+    const id = window.location.hash.replace('#', '');
+    if (id) {
+        state.movie = new Movie(id);
 
-        movieView.displayMovie(state.movie.data);
+        renderLoader(elements.movieDetailsContainer);
+
+        await state.movie.getMovie();
         movieView.backToTop();
-        
+        movieView.displayMovie(state.movie.data);
+        setTimeout(() => { clearLoader(elements.movieDetailsContainer); }, 1000);
     }
 };
 
 window.addEventListener('hashchange', movieController);
-
-elements.movieDetailsClose.addEventListener('click',movieView.closeDetails);
+elements.movieDetailsClose.addEventListener('click', movieView.closeDetails);
