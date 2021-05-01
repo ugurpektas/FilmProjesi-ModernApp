@@ -18,7 +18,8 @@ const searchController = async () => {
         state.search = new Search(keyword);     // girilen valueyi state objesinin içerisine aktarma
 
         await state.search.getResults();
-        
+        searchView.clearInput();
+        searchView.clearResults();
         searchView.displayResults(state.search.data);
     }else {
         alert('anahtar kelime girmelisiniz.');
