@@ -6,7 +6,23 @@
 
 import Search from './models/Search';
 
-const search = new Search('abc');
+const state = {};
 
-console.log(search);
-search.getResult();
+const searchController = async () => {
+    const keyword = document.getElementById('txt-keyword').value;
+
+    if (keyword) {
+        state.search = new Search(keyword);
+
+        await state.search.getResults();
+        console.log(state.search.data);
+    }else {
+        alert('anahtar kelime girmelisiniz.');
+    }
+}
+
+document.getElementById('form-search').addEventListener('submit',function(e){
+        console.log('form submited...')
+        searchController();
+    e.preventDefault();
+});
