@@ -9,6 +9,7 @@
 import Search from './models/Search';
 import {elements} from './base';
 import * as searchView from './views/searchView';
+import * as movieView from './views/movieView';
 import { Movie } from './models/Movie';
 
 const state = {};
@@ -41,13 +42,16 @@ elements.searchForm.addEventListener('submit', function(e) {
 // Movie Controller
 
 const movieController = async () => {
-    const id = window.location.hash.replace('#','');     //tıkladığımız objenin hashtag kısmını çağırır. ve '#' ifadelerini silerek console da gösterir. "replace"
-    if (id) {
-        state.movie = new Movie(id);
+    const id = window.location.hash.replace('#','');
+    if(id) {
+        state.movie= new Movie(id);
+        
         await state.movie.getMovie();
 
-        console.log(state.movie);
+        movieView.displayMovie(state.movie.data);
+        movieView.backToTop();
+        
     }
-}
+};
 
-window.addEventListener('hashchange',movieController);
+window.addEventListener('hashchange', movieController);
