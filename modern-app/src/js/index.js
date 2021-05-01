@@ -26,7 +26,7 @@ const searchController = async () => {
 
         searchView.clearInput();
         searchView.clearResults();
-        searchView.displayResults(state.search.data);
+        searchView.displayResults(keyword , state.search.data);
 
     }else {
         alert('anahtar kelime girmelisiniz');
@@ -55,3 +55,5 @@ const movieController = async () => {
 };
 
 window.addEventListener('hashchange', movieController);
+
+elements.movieDetailsClose.addEventListener('click',movieView.closeDetails);

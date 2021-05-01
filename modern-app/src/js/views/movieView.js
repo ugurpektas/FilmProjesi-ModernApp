@@ -4,6 +4,10 @@ export const backToTop = () => {
     window.scrollTo({top:0, behavior:'smooth'});
 }
 
+export const closeDetails = () => {
+    elements.movieDetailsContainer.classList.remove('d-block');
+}
+
 export const displayMovie = movie => {
 
     var html  ='<div class="row">';
